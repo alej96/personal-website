@@ -2,18 +2,20 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
       app
     >
       <v-list>
+        <p> Check my Projects!</p>
+    
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
           router
           exact
+          
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -23,67 +25,58 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
     </v-navigation-drawer>
+    
+
+      
+        <v-list 
+        nav 
+        dense>
+          <v-list-item
+            class="ver-nav-bar"
+            v-for="item in items"
+            :key="item.icon"
+            router
+
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list>
+     
+<!--Start top App bar where you can add -->
     <v-app-bar
-      :clipped-left="clipped"
       fixed
       app
     >
+
+    <!-- button that activates side bar -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+    <!-- my name displayed on nav bar -->
+      <nuxt-link to="/" class="brand" v-text="title"></nuxt-link>
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
+
+
+    
+
+<!-- web page content -->
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    
+
+    <!-- footer     -->
     <v-footer
       :fixed="fixed"
-      app
+    
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+    <v-spacer></v-spacer>
+      <span >Alejandro Torrico   &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -94,24 +87,42 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
+      fixed: true,
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-webhook',
+          title: 'Hershey',
+          to: '/hershey-mso'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Alejandro Torrico',
+      to: '/'
     }
   }
 }
 </script>
+<style scoped>
+.brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #39b982;
+  text-decoration: none;
+}
+.ver-nav-bar {
+  top: 60px
+}
+</style>
